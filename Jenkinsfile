@@ -3,7 +3,7 @@ pipeline {
         node {
             label: "jenkins-python"
             }
-    }
+        }
     stages {
         stage('Build') {
             steps{
