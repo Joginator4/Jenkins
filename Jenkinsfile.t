@@ -1,15 +1,16 @@
 pipeline {
-    agent {
+    agent { 
         node {
-            label 'jenkins-agent'
+            label 'jenkins-python'
             }
-        }
+      }
     stages {
         stage('Build') {
             steps{
                 echo "Building.."
+                sh
                 echo "Building stuff"
             }
         }
-    }
+        }
 }
