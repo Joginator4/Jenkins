@@ -9,6 +9,7 @@ pipeline {
             stage('Sending Dockerfile to Ansible server'){
                 steps{
                     sshagent(credentials: ['ansible']) {
+                        su jenkins
                         sh 'ssh -tt ubuntu@172.31.19.243'
                         sh 'scp -r /var/lib/jenkins/workspace/pipeline-test ubuntu@172.31.19.243:/home/ubuntu/'
                 }
