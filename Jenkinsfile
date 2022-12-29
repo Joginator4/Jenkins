@@ -5,10 +5,9 @@ pipeline {
             }
         }
     stages {
-        stage('Build') {
+        stage('Git checkout') {
             steps{
-                echo "Building.."
-                echo "Building stuff"
+                git 'https://github.com/Joginator4/Jenkins'
             }
         }
     }
