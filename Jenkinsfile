@@ -4,6 +4,7 @@ pipeline {
             stage('Git checkout') {
                 steps{
                     git 'https://github.com/Joginator4/Jenkins'
+                    sh 'echo blaba'
                 }
             }
             stage('Sending Dockerfile to Ansible server'){
