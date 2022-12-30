@@ -21,7 +21,7 @@ pipeline {
                         sh ''' #!/bin/bash
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/test/
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker build -t $JOB_NAME:v1.$BUILD_ID .
-                        ssh -o StrictHostKeyChecking=n0 ubuntu@172.31.19.243 docker image tag $JOB_NAME:v1.$BUILD_ID 867452:1.0
+                        ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image tag $JOB_NAME:v1.$BUILD_ID 867452:1.0
                         '''
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                     withCredentials([string(credentialsId: '', variable: 'DOCKERHUB_PASSWORD')]) {
                         sh ''' #!/bin/bash
                         docker login -u 867452 -p ${DOCKERHUBPASSWORD}
-                        ssh -o StrictHostKeyChecking=n0 ubuntu@172.31.19.243 docker push $JOB_NAME:v1.$BUILD_ID
+                        ssh -o StrictHostKeyChecking= ubuntu@172.31.19.243 docker push $JOB_NAME:v1.$BUILD_ID
                         '''
                     }
                 }
