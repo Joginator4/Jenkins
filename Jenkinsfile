@@ -29,7 +29,7 @@ pipeline {
         stage('Pushing image to registry'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    withCredentials([string(credentialsId: '', variable: 'DOCKERHUB_PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'DOCKERHUB_PASSWORD')]) {
                         sh ''' #!/bin/bash
                         docker login -u 867452 -p ${DOCKERHUBPASSWORD}
                         ssh -o StrictHostKeyChecking= ubuntu@172.31.19.243 docker push $JOB_NAME:v1.$BUILD_ID
