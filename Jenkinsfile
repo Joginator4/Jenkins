@@ -18,9 +18,8 @@ pipeline {
         stage('Login to docker and build image by Ansible'){
                 steps{
                     sshagent(credentials: ['ansible']) {
-                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243'
-                        sh 'pwd'
-                        sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/test/'
+                        sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker build -t $JOB_NAME:v1.$BUILD_ID'
                 }
             }
         }
