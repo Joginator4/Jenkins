@@ -19,7 +19,8 @@ pipeline {
                 steps{
                     sshagent(credentials: ['ansible']) {
                         sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243'
-                        sh 'cd /home/ubuntu/test/; docker build -t $JOB_NAME:v1.$BUILD_ID .'
+                        sh 'pwd'
+                        sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
                 }
             }
         }
