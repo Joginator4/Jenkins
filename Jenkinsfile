@@ -17,8 +17,9 @@ pipeline {
         stage('Login to docker and build image by Ansible'){
                 steps{
                     sshagent(credentials: ['ansible']) {
-                        sh 'ssh -o StrickHostKeyChecking=no ubuntu@172.31.19.243 sudo usermod -aG docker ${USER}'
-                        sh 'ssh -o StrickHostKeyChecking=no ubuntu@172.31.19.243 cd $HOME/pipeline-test docker build -t $JOB_NAME:v1.$BUILD_ID .'
+                        sh 'ssh -o StrickHostKeyChecking=no ubuntu@172.31.19.243'
+                        sh 'sudo usermod -aG docker ${USER}'
+                        sh 'cd $HOME/pipeline-test; docker build -t $JOB_NAME:v1.$BUILD_ID .'
                 }
             }
         }
