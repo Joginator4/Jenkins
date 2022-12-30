@@ -18,6 +18,7 @@ pipeline {
                 steps{
                     sshagent(credentials: ['ansible']) {
                         sh 'ssh -o StrickHostKeyChecking=no ubuntu@172.31.19.243'
+                        sudo usermod -aG docker ${USER}
                         cd $HOME/pipeline-test
                         docker build -t nginx:1.0 .
                 }
