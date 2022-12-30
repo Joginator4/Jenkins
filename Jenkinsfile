@@ -31,9 +31,9 @@ pipeline {
                 sshagent(credentials:['ansible']) {
                     withCredentials([string(credentialsId: '', variable: 'DOCKERHUB_PASSWORD')]) {
                         sh ''' #!/bin/bash
-                    docker login -u 867452 -p ${DOCKERHUBPASSWORD}
-                    ssh -o StrictHostKeyChecking=n0 ubuntu@172.31.19.243 docker push $JOB_NAME:v1.$BUILD_ID
-                    '''
+                        docker login -u 867452 -p ${DOCKERHUBPASSWORD}
+                        ssh -o StrictHostKeyChecking=n0 ubuntu@172.31.19.243 docker push $JOB_NAME:v1.$BUILD_ID
+                        '''
                     }
                 }
             }
