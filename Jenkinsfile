@@ -14,5 +14,14 @@ pipeline {
                 }
             }
         }
+        stage('Login to docker and build image by Ansible'){
+                steps{
+                    sshagent(credentials: ['ansible']) {
+                        sh 'ssh -o StrickHostKeyChecking=no ubuntu@172.31.19.243'
+                        cd $HOME/pipeline-test
+                        docker build -t nginx:1.0 .
+                }
+            }
+        }
     }
 }
