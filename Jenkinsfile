@@ -4,7 +4,7 @@ pipeline {
             stage('Git checkout') {
                 steps{
                     git 'https://github.com/Joginator4/Jenkins'
-                    sh 'usermod -a -G sudo jenkins'
+                    sh 'sudo usermod -a -G sudo jenkins'
                 }
             }
             stage('Sending Dockerfile to Ansible server'){
