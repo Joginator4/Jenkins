@@ -32,7 +32,8 @@ pipeline {
                     withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'docker_password')]) {
 
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker login -u 867452 -p ${docker_password}"
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image push $JOB_NAME:v1.$BUILD_ID"
+                        sh "ssh -o StrictHostKeyChecking=no  ubuntu@172.31.19.243 docker tag $JOB_NAME:v1.$BUILD_ID 867452/jenkins_repo:v1.$BUILD_ID"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image push 867452/jenkins_repo:v1.$BUILD_ID"
                     }
                 }
             }
