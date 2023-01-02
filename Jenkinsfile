@@ -29,8 +29,9 @@ pipeline {
         stage('Pushing image to registry'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'DOCKERHUB_PASSWORD')]) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker login -u 867452 -p ${DOCKERHUB_PASSWORD}"
+                    withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'docker_password')]) {
+
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker login -u 867452 -p ${docker_password}"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image push $JOB_NAME:v1.$BUILD_ID"
                     }
                 }
