@@ -9,13 +9,14 @@ pipeline {
             stage('Cloning repository') {
                 steps{
                     git 'https://github.com/Joginator4/Jenkins'
+                    
                 }
             }
             stage('Preparing Dockerfile on ansible server'){
                 steps{
                     sshagent(credentials: ['ansible']) {
                         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243'
-                        sh 'scp /var/lib/jenkins/workspace/pipeline-test/Dockerfile ubuntu@172.31.19.243:/home/ubuntu/test/'
+                        sh 'scp $WORKSPACE/Dockerfile ubuntu@172.31.19.243:/home/ubuntu/test/'
                 }
             }
         }
@@ -44,7 +45,7 @@ pipeline {
         stage('Preparing Ansible files'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 scp -r /var/lib/jenkins/workspace/pipeline-test/*.yml $ANSIBLE_WORKSPACE "
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 scp -r $WORKSPACE/Kubernetes/*.yml $ANSIBLE_WORKSPACE "
                 }
             }
         }
