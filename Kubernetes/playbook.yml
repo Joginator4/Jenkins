@@ -5,10 +5,10 @@
 
   tasks:
     - name: Create nginx deployment
-      command: 
+      shell: 
           su ubuntu
           kubectl apply -f /home/ubuntu/ansible-inventory/Deployment.yaml
     - name: Create service
-      command: 
+      shell: 
           su ubuntu
           kubectl apply -f /home/ubuntu/ansible-inventory/Service.yaml
