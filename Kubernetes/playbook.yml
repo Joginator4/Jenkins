@@ -1,0 +1,10 @@
+---
+- name: deploy nginx
+  hosts: cluster
+  become: true
+
+  tasks:
+    - name: Create nginx deployment
+      command: kubectl apply -f /home/ubuntu/ansible-inventory/Deployment.yaml
+    - name: Create service
+      command: kubectl apply -f /home/ubuntu/ansible-inventory/Service.yaml

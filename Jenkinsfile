@@ -1,13 +1,17 @@
 pipeline {
     agent any
+    environment {
+        ANSIBLE_WORKSPACE = '/home/ubuntu/ansible-inventory/'
+        ANSIBLE_SERVER =  'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243'
+        REPOSITORY = 'https://github.com/Joginator4/Jenkins'
+    }
     stages {
-            stage('Git checkout') {
+            stage('Cloning repository') {
                 steps{
-                    git 'https://github.com/Joginator4/Jenkins'
-                    sh 'echo blaba'
+                    git $REPOSITORY
                 }
             }
-            stage('Sending Dockerfile to Ansible server'){
+            stage('Preparing Dockerfile on ansible server'){
                 steps{
                     sshagent(credentials: ['ansible']) {
                         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243'
@@ -15,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('Login to docker and build image by Ansible'){
+        stage('Login to docker and build nginx image'){
                 steps{
                     sshagent(credentials: ['ansible']) {
                         sh ''' #!/bin/bash
@@ -26,11 +30,10 @@ pipeline {
                 }
             }
         }
-        stage('Pushing image to registry'){
+        stage('Pushing image to dockerhub registry'){
             steps{
                 sshagent(credentials:['ansible']) {
                     withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'docker_password')]) {
-
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker login -u 867452 -p ${docker_password}"
                         sh "ssh -o StrictHostKeyChecking=no  ubuntu@172.31.19.243 docker tag $JOB_NAME:v1.$BUILD_ID 867452/jenkins_repo:v1.$BUILD_ID"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image push 867452/jenkins_repo:v1.$BUILD_ID"
@@ -38,5 +41,17 @@ pipeline {
                 }
             }
         }
+        stage('Preparing Ansible files')
+            steps{
+                sshagent(credentials:['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 scp -r /var/lib/jenkins/workspace/pipeline-test/*.yml $ANSIBLE_WORKSPACE "
+                }
+            }
+        stage('Running Ansible Playbook')
+            steps{
+                sshagent(credentials:['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd $ANSIBLE_WORKSPACE"
+                }               
+            }
     }
 }
