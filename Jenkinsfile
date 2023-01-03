@@ -23,11 +23,11 @@ pipeline {
         stage('Login to docker and build nginx image'){
                 steps{
                     sshagent(credentials: ['ansible']) {
-                        sh ''' #!/bin/bash
+                        sh """ #!/bin/bash
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/test/
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker build -t $JOB_NAME:v1.$BUILD_ID .
                         ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 docker image tag $JOB_NAME:v1.$BUILD_ID 867452:1.0
-                        '''
+                        """
                 }
             }
         }
@@ -53,10 +53,10 @@ pipeline {
         stage('Running Ansible Playbook'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    sh ''' #!/bin/bash
+                    sh """ #!/bin/bash
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd $ANSIBLE_WORKSPACE
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 ansible-playbook playbook.yml
-                    '''
+                    """
                 }               
             }
         }    
