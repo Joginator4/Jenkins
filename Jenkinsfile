@@ -41,17 +41,19 @@ pipeline {
                 }
             }
         }
-        stage('Preparing Ansible files')
+        stage('Preparing Ansible files'){
             steps{
                 sshagent(credentials:['ansible']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 scp -r /var/lib/jenkins/workspace/pipeline-test/*.yml $ANSIBLE_WORKSPACE "
                 }
             }
-        stage('Running Ansible Playbook')
+        }
+        stage('Running Ansible Playbook'){
             steps{
                 sshagent(credentials:['ansible']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd $ANSIBLE_WORKSPACE"
                 }               
             }
+        }    
     }
 }
