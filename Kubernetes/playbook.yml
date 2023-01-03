@@ -7,7 +7,7 @@
   tasks:
     - name: Create nginx deployment
       shell:
-        cmd: kubectl apply -f /home/ubuntu/ansible-inventory/Deployment.yaml
+        cmd: kubectl apply -f /home/ubuntu/deployment.yaml
     - name: Create service
       shell:
-        cmd: kubectl apply -f /home/ubuntu/ansible-inventory/Service.yaml
+        cmd: kubectl apply -f Service.yaml
