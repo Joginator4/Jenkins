@@ -3,12 +3,12 @@ pipeline {
     environment {
         ANSIBLE_WORKSPACE = '/home/ubuntu/ansible-inventory/'
         ANSIBLE_SERVER =  'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243'
-        REPOSITORY = 'https://github.com/Joginator4/Jenkins'
+        
     }
     stages {
             stage('Cloning repository') {
                 steps{
-                    git $REPOSITORY
+                    git 'https://github.com/Joginator4/Jenkins'
                 }
             }
             stage('Preparing Dockerfile on ansible server'){
