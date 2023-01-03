@@ -45,7 +45,8 @@ pipeline {
         stage('Preparing Ansible files'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 scp -r $WORKSPACE/Kubernetes/*.yml $ANSIBLE_WORKSPACE "
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243"
+                    sh "scp -r $WORKSPACE/Kubernetes/*.yml $ANSIBLE_WORKSPACE"
                 }
             }
         }
