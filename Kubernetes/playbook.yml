@@ -2,15 +2,12 @@
 - name: deploy nginx
   hosts: cluster
   become: true
+  become_user: ubuntu
 
   tasks:
     - name: Create nginx deployment
-      shell: 
-        cmd: su ubuntu
-        cmd: echo $USER
+      shell:
         cmd: kubectl apply -f /home/ubuntu/ansible-inventory/Deployment.yaml
     - name: Create service
-      shell: 
-        cmd: su ubuntu
-        cmd: echo $USER
+      shell:
         cmd: kubectl apply -f /home/ubuntu/ansible-inventory/Service.yaml
