@@ -53,8 +53,10 @@ pipeline {
         stage('Running Ansible Playbook'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243"
-                    sh "cd $ANSIBLE_WORKSPACE su ubuntu"
+                    sh ''' #!/bin/bash
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd $ANSIBLE_WORKSPACE
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 ansible-playbook playbook.yml
+                    '''
                 }               
             }
         }    
