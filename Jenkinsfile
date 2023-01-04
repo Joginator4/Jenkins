@@ -58,7 +58,7 @@ pipeline {
             steps{
                 sshagent(credentials:['ansible']) {
                     sh """ #!/bin/bash
-                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd $ANSIBLE_WORKSPACE
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/ansible-inventory
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 ansible-playbook playbook.yml
                     """
                 }               
