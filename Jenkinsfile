@@ -45,8 +45,10 @@ pipeline {
         stage('Preparing Ansible files'){
             steps{
                 sshagent(credentials:['ansible']) {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd ~/Kubernetes_yaml"
-                    sh "scp -r $WORKSPACE/Kubernetes/*.yml ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
+                    sh """ #/bin/bash
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd ~/Kubernetes_yaml"
+                    scp -r $WORKSPACE/Kubernetes/*.yml ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
+                    """
                 }
             }
         }
