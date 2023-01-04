@@ -5,6 +5,13 @@
   become_user: ubuntu
 
   tasks:
+    - name: Preparing Kubernetes environment to work
+      shell:
+        cmd: echo "alias k=kubectl" > /home/ubuntu/.bashrc; source bashrc
+
+    - name: Copy kubernetes yaml files to Kubernetes server
+      shell:
+        cmd: scp -r /home/ubuntu/Kubernetes_yaml/*.yml 
     - name: Create nginx deployment
       shell:
         cmd: kubectl apply -f /home/ubuntu/deployment.yaml
