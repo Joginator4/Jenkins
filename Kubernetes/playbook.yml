@@ -11,10 +11,10 @@
 
     - name: Copy kubernetes yaml files to Kubernetes server
       shell:
-        cmd: scp -r /home/ubuntu/Kubernetes_yaml/*.yml 
+        cmd: scp -r ubuntu@172.31.15.124:/home/ubuntu/Kubernetes_yaml/*.yml /home/ubuntu/Deployment 
     - name: Create nginx deployment
       shell:
-        cmd: kubectl apply -f /home/ubuntu/deployment.yaml
+        cmd: kubectl apply -f /home/ubuntu/Deployment.yml
     - name: Create service
       shell:
-        cmd: kubectl apply -f Service.yaml
+        cmd: kubectl apply -f Service.yml
