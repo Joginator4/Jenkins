@@ -47,7 +47,7 @@ pipeline {
                 sshagent(credentials:['ansible']) {
                     sh """ #/bin/bash
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
-                    scp -r $WORKSPACE/Kubernetes/*.yml ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
+                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/*.yml ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
                     """
                 }
             }
