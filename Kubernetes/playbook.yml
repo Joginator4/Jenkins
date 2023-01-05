@@ -8,7 +8,7 @@
     - name: Preparing Kubernetes environment to work
       shell:
         cmd: echo "alias k=kubectl" >> /home/ubuntu/.bashrc
-        cmd: /bin/bash source .bashrc
+        cmd: source ~/.bashrc
 
     - name: Copy kubernetes yaml files to Kubernetes server
       shell:
