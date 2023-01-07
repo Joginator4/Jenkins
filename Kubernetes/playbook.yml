@@ -5,17 +5,17 @@
   become_user: ubuntu
 
   tasks:
-    - name: Preparing Kubernetes environment to work
+    - name: Installing Calico Plugin on k8s cluster
       shell:
-        cmd: echo "alias k=kubectl" >> /home/ubuntu/.bashrc
-        cmd: source ~/.bashrc
-
-    - name: Copy kubernetes yaml files to Kubernetes server
-      shell:
-        cmd: scp -r ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml/*.yml /home/ubuntu/Deployment/
-    - name: Create nginx deployment
-      shell:
-        cmd: kubectl apply -f /home/ubuntu/Deployment/Deployment.yml
-    - name: Create service
-      shell:
-        cmd: kubectl apply -f /home/ubuntu/Deployment/Service.yml
+        cmd: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+        cmd: curl https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/custom-resources.yaml -O
+        cmd: kubectl create -f custom-resources.yaml
+    # - name: Copy kubernetes yaml files to Kubernetes server
+    #   shell:
+    #     cmd: scp -r ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml/*.yml /home/ubuntu/Deployment/
+    # - name: Create nginx deployment
+    #   shell:
+    #     cmd: kubectl apply -f /home/ubuntu/Deployment/Deployment.yml
+    # - name: Create service
+    #   shell:
+    #     cmd: kubectl apply -f /home/ubuntu/Deployment/Service.yml
