@@ -47,9 +47,11 @@ pipeline {
                 sshagent(credentials:['ansible']) {
                     sh """ #/bin/bash
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
-                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/env_variables ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
+                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/* ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
                     scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/playbook.yml ubuntu@172.31.19.243:/home/ubuntu/ansible-inventory"
+                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
+                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/env_variables ubuntu@172.31.19.243:/home/ubuntu/ansible-inventory"
                     """
                 }
             }
