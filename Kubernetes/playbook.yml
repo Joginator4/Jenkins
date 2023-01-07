@@ -8,6 +8,8 @@
     - name: Installing Calico Plugin on k8s cluster
       shell:
         chdir: /home/ubuntu/
+        cmd: pwd
+        cmd: ls
         cmd: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
         cmd: curl https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/custom-resources.yaml -O
         cmd: kubectl create -f ./custom-resources.yaml
