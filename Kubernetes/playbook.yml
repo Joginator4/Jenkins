@@ -7,7 +7,7 @@
     - ./env_variables.yml
   tasks:
     - name: Installing Calico Plugin on k8s cluster
-      ansible.builtin.get_url:
+      get_url:
         url: $CALICO_CONFIG
         dest: /home/ubuntu
         mode: '700'
