@@ -21,10 +21,10 @@
         - virtualenv
         - python3-setuptools
        state: latest
-   - name: Add Docker GPG apt key
-    apt_key:
-       url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-       state: present
+    - name: Add Docker GPG apt key
+      apt_key:
+         url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+         state: present
     - name: Add Docker repository
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
