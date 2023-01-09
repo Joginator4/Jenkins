@@ -3,6 +3,7 @@ pipeline {
     environment {
         ANSIBLE_WORKSPACE = '/home/ubuntu/ansible-inventory'
         ANSIBLE_SERVER =  'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243s'
+        PLAYBOOK_NAME = 'playbook.yml'
         
     }
     stages {
@@ -42,14 +43,12 @@ pipeline {
                 }
             }
         }
-        stage('Preparing Ansible files'){
+        stage('Ansible Server Configration '){
             steps{
                 sshagent(credentials:['ansible']) {
                     sh """ #/bin/bash
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
-                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/* ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml"
-                    ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/Kubernetes_yaml"
-                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Kubernetes/playbook.yml ubuntu@172.31.19.243:/home/ubuntu/ansible-inventory"
+                    scp -r ubuntu@172.31.11.235:$WORKSPACE/Ansible_workspace/* ubuntu@172.31.19.243:/home/ubuntu/ansible-inventory"
                     """
                 }
             }
@@ -59,7 +58,7 @@ pipeline {
                 sshagent(credentials:['ansible']) {
                     sh """ #!/bin/bash
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.19.243 cd /home/ubuntu/ansible-inventory"
-                    ansible-playbook playbook.yml"
+                    ansible-playbook $PLAYBOOK_NAME"
                     """
                 }               
             }

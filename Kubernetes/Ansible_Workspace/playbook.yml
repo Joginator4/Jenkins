@@ -1,0 +1,21 @@
+---
+- name: TestGuy Server
+  hosts: testguy
+  become: yes
+#  become_user: ubuntu
+  tasks:
+  - name: Set authorized key
+    ansible.posix.authorized_key:
+      user: ubuntu
+      state: present
+      key: "{{ lookup('file', '/home/ubuntu/.ssh/id_rsa.pub') }}"
+- name: Jenkins Server
+  hosts: jenkins
+  become: yes
+#  become_user: ubuntu
+  tasks:
+  - name: Set authorized key
+    ansible.posix.authorized_key:
+      user: jenkins
+      state: present
+      
