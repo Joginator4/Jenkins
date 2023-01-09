@@ -4,13 +4,13 @@
   become: yes
 #  become_user: ubuntu
   tasks:
-   - name: Install aptitude
-     apt:
+    - name: Install aptitude
+      apt:
        name: aptitude
        state: latest
        update_cache: true
-   - name: Prepare tools to install Docker
-     apt:
+    - name: Prepare tools to install Docker
+      apt:
        pkg: 
         - update
         - apt-transport-https
