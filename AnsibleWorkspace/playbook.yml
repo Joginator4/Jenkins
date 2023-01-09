@@ -10,7 +10,7 @@
        state: latest
        update_cache: true
    - name: Prepare tools to install Docker
-    apt:
+     apt:
        pkg: 
         - update
         - apt-transport-https
@@ -22,7 +22,7 @@
         - python3-setuptools
        state: latest
    - name: Add Docker GPG apt key
-     apt_key:
+    apt_key:
        url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
        state: present
     - name: Add Docker repository
