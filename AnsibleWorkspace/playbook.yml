@@ -4,14 +4,14 @@
   become: yes
 #  become_user: ubuntu
   tasks:
-  - name: Install aptitude
+   - name: Install aptitude
+     apt:
+       name: aptitude
+       state: latest
+       update_cache: true
+   - name: Prepare tools to install Docker
     apt:
-      name: aptitude
-      state: latest
-      update_cache: true
-  - name: Prepare tools to install Docker
-    apt:
-      pkg: 
+       pkg: 
         - update
         - apt-transport-https
         - ca-certificates
@@ -20,24 +20,24 @@
         - python3-pip
         - virtualenv
         - python3-setuptools
-      state: latest
-  - name: Add Docker GPG apt key
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+       state: latest
+   - name: Add Docker GPG apt key
+     apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+       state: present
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
       state: present
-  - name: Add Docker repository
-    apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
-    state: present
-  - name: Install from Docker repo
-    apt:
-      pkg:
-        - policy docker-ce
-        - docker-ce
-  - name: Priviliges for user
-    user: name=ubuntu
-          groups=docker
-          append=yes
+    - name: Install from Docker repo
+      apt:
+        pkg:
+          - policy docker-ce
+          - docker-ce
+    - name: Priviliges for user
+      user: name=ubuntu
+            groups=docker
+            append=yes
 
 
 
