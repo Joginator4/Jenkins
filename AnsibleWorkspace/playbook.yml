@@ -12,7 +12,6 @@
     - name: Prepare tools to install Docker
       apt:
        pkg: 
-        - update
         - apt-transport-https
         - ca-certificates
         - curl
