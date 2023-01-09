@@ -36,6 +36,9 @@
       user: name=ubuntu
             groups=docker
             append=yes
+    - name: Applying user to group
+      become_user: ubuntu
+
 
 
 
