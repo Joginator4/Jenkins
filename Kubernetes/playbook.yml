@@ -1,20 +1,16 @@
 ---
 - name: deploy nginx
   hosts: cluster
-  become: true
+  become: yes
   become_user: ubuntu
   vars_files:
     - ./env_variables.yml
   tasks:
-    - name: Installing Calico Plugin on k8s cluster
-      get_url:
-        url: $CALICO_CONFIG
-        dest: /home/ubuntu
-        mode: '700'
-      shell: |
-        kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
-        curl $CALICO_CONFIG
-        kubectl create -f ./custom-resources.yaml
+  - name: Installing Calico Plugin on k8s cluster
+    shell: |
+      kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+      curl -o /home/ubuntu $CALICO_CONFIG
+      kubectl create -f ./custom-resources.yaml
     # - name: Copy kubernetes yaml files to Kubernetes server
     #   shell:
     #     cmd: scp -r ubuntu@172.31.19.243:/home/ubuntu/Kubernetes_yaml/*.yml /home/ubuntu/Deployment/
