@@ -4,7 +4,7 @@
   become: true
   become_user: ubuntu
   vars_files:
-  - env_variables
+    - ./env_variables.yml
   tasks:
     - name: Installing Calico Plugin on k8s cluster
       shell: |
