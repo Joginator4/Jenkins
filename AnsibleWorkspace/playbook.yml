@@ -22,7 +22,7 @@
        state: latest
     - name: Add Docker GPG apt key
       apt_key:
-         url: https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+         url: https://download.docker.com/linux/ubuntu/gpg
          state: present
     - name: Add Docker repository
       apt_repository:
