@@ -2,7 +2,7 @@
 - name: Jenkins Server
   hosts: jenkins
   become: yes
-  become_user: ubuntu
+#  become_user: ubuntu
   tasks:
   - name: Install net-tools on Jenkins Server
     apt:
@@ -10,7 +10,7 @@
 - name: TestGuy Server
   hosts: testguy
   become: yes
-  become_user: ubuntu
+#  become_user: ubuntu
   tasks:
   - name: Install net-tools on TestGuy Server
     apt:
