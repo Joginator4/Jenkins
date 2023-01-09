@@ -9,7 +9,7 @@ pipeline {
     stages {
             stage('Cloning repository') {
                 steps{
-                    git 'https://github.com/Joginator4/Jenkins'
+                    git pull 'https://github.com/Joginator4/Jenkins'
                     
                 }
             }
