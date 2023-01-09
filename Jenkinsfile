@@ -9,8 +9,7 @@ pipeline {
     stages {
             stage('Cloning repository') {
                 steps{
-                    git 'https://github.com/Joginator4/Jenkins'
-                    
+                    git 'https://github.com/Joginator4/Jenkins' 
                 }
             }
             stage('Preparing Dockerfile on ansible server'){
