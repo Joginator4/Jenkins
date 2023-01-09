@@ -31,7 +31,6 @@
     - name: Install from Docker repo
       apt:
         pkg:
-          - policy docker-ce
           - docker-ce
     - name: Priviliges for user
       user: name=ubuntu
