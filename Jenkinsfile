@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         ANSIBLE_WORKSPACE = '/home/ubuntu/ansible-inventory'
-        ANSIBLE_SERVER =  'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243s'
-        PLAYBOOK_NAME = 'playbook.yml'
+        ANSIBLE_SERVER =  'ssh -o  StrictHostKeyChecking=no ubuntu@172.31.19.243'
+        PLAYBOOK_NAME = 'install_docker.yml'
         
     }
     stages {
